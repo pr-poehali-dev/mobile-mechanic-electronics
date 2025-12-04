@@ -60,6 +60,14 @@ export default function Index() {
   const [phone, setPhone] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
+  const whatsappNumber = '79991234567';
+  const whatsappMessage = 'Здравствуйте! Хочу записаться на ремонт автомобиля.';
+
+  const openWhatsApp = () => {
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(url, '_blank');
+  };
+
   const handleBooking = () => {
     if (!selectedService || !selectedDate || !selectedTime || !name || !phone) {
       toast({
@@ -85,6 +93,13 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background">
+      <button
+        onClick={openWhatsApp}
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 animate-pulse"
+        aria-label="Написать в WhatsApp"
+      >
+        <Icon name="MessageCircle" size={28} />
+      </button>
       <header className="border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -204,9 +219,19 @@ export default function Index() {
                   </Button>
                 </DialogTrigger>
               </Dialog>
-              <Button size="lg" variant="outline" className="gap-2 bg-white text-secondary hover:bg-gray-100">
-                <Icon name="Phone" size={20} />
-                +7 (999) 123-45-67
+              <Button size="lg" variant="outline" className="gap-2 bg-white text-secondary hover:bg-gray-100" asChild>
+                <a href="tel:+79991234567">
+                  <Icon name="Phone" size={20} />
+                  +7 (999) 123-45-67
+                </a>
+              </Button>
+              <Button 
+                size="lg" 
+                onClick={openWhatsApp}
+                className="gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white"
+              >
+                <Icon name="MessageCircle" size={20} />
+                WhatsApp
               </Button>
             </div>
           </div>
@@ -291,8 +316,25 @@ export default function Index() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Телефон</h3>
-                      <p className="text-muted-foreground">+7 (999) 123-45-67</p>
+                      <a href="tel:+79991234567" className="text-muted-foreground hover:text-primary transition-colors">
+                        +7 (999) 123-45-67
+                      </a>
                       <p className="text-sm text-muted-foreground">Круглосуточно, без выходных</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-[#25D366]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name="MessageCircle" className="text-[#25D366]" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">WhatsApp</h3>
+                      <button 
+                        onClick={openWhatsApp}
+                        className="text-muted-foreground hover:text-[#25D366] transition-colors text-left"
+                      >
+                        +7 (999) 123-45-67
+                      </button>
+                      <p className="text-sm text-muted-foreground">Быстрая связь через мессенджер</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
